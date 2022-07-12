@@ -9,7 +9,7 @@ int SumMinOfArray(int[] array, int[] array2)
     int sum = 0;
     for (int l = 0; l < n; l++)
     {
-        if (array[l] < array2[l])
+        if (array[l] <= array2[l])
         {
             sumN = array[l];
         }
