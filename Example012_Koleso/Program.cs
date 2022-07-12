@@ -1,5 +1,5 @@
 ﻿/*
-    Реализация колеса компетенций c платвормы GeekBrains
+    Реализация колеса компетенций c платформы GeekBrains
     https://gb.ru/
 */
 int SumMinOfArray(int[] array, int[] array2)
