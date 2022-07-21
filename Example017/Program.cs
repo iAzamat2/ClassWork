@@ -398,7 +398,94 @@ CD?
 void Task12()
 {
 
+
+    int sizeI = 2;
+    int sizeJ = 4;
+    int[,] points = new int[sizeI, sizeJ];
+
+
+
+    int[,] PointGenerator(int[,] array, int size1, int size2)
+    {
+        for (int i = 0; i < size1; i++)
+        {
+
+            for (int j = 0; j < size2; j++)
+            {
+                Random random = new Random();
+                array[i, j] = random.Next(-100, 101);
+
+            }
+
+        }
+        return array;
+
+    }
+
+
+
+    PointGenerator(points, sizeI, sizeJ);
+    PrintArray(points, sizeJ);
+
+    if (areCrossing(points) == true)
+    {
+        Console.WriteLine("Вектора AB и CD пересекаются");
+    }
+    else
+    {
+        Console.WriteLine("Вектора AB и CD не пересекаются");
+    }
+
+
+
+    void PrintArray(int[,] array0, int size2)
+    {
+        string[] listname = { "A", "B", "C", "D" };
+
+        for (int j = 0; j < size2; j++)
+        {
+            Console.Write($"{listname[j]} ({array0[0, j]}, {array0[1, j]}); ");
+        }
+
+        Console.Write("\b\b ");
+        Console.WriteLine();
+
+    }
+
+
+
+    int vector_mult(int ax, int ay, int bx, int by) //векторное произведение
+    {
+        return ax * by - bx * ay;
+    }
+
+
+
+    bool areCrossing(int[,] array)//проверка пересечения
+    {
+
+        int p1x = array[0, 0]; int p1y = array[1, 0];
+        int p2x = array[0, 1]; int p2y = array[1, 1];
+        int p3x = array[0, 2]; int p3y = array[1, 2];
+        int p4x = array[0, 3]; int p4y = array[1, 3];
+
+        int v1 = vector_mult(p4x - p3x, p4y - p3y, p1x - p3x, p1y - p3y);
+        int v2 = vector_mult(p4x - p3x, p4y - p3y, p2x - p3x, p2y - p3y);
+        int v3 = vector_mult(p2x - p1x, p2y - p1y, p3x - p1x, p3y - p1y);
+        int v4 = vector_mult(p2x - p1x, p2y - p1y, p4x - p1x, p4y - p1y);
+
+        if ((v1 * v2) < 0 && (v3 * v4) < 0)
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+
+
 }
+
 
 
 
@@ -412,6 +499,159 @@ void Task12()
 
 void Task13()
 {
+
+    int sizeI = 2;
+    int sizeJ = 4;
+    int[,] points = new int[sizeI, sizeJ];
+    int[] junction = new int[2];
+
+
+    int[,] PointGenerator(int[,] array, int size1, int size2)
+    {
+        for (int i = 0; i < size1; i++)
+        {
+
+            for (int j = 0; j < size2; j++)
+            {
+                Random random = new Random();
+                array[i, j] = random.Next(-100, 101);
+
+            }
+
+        }
+        return array;
+
+    }
+
+
+
+    PointGenerator(points, sizeI, sizeJ);
+    PrintArray(points, sizeJ);
+    CrossingPoint(points, junction);
+    int pointPos = PointPosition(junction);
+
+
+
+    if (areCrossing(points) == true)
+    {
+        if (pointPos != 0)
+        {
+            Console.WriteLine($"Вектора AB и CD пересекаются в точке M ({junction[0]}, {junction[1]}), которая лежит в {pointPos} четверти");
+        }
+        else
+        {
+            Console.WriteLine($"Вектора AB и CD пересекаются в точке M ({junction[0]}, {junction[1]}), которая лежит на оси координат");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Вектора AB и CD не пересекаются");
+    }
+
+
+
+    int PointPosition(int[] array)
+    {
+
+        int PointPosition = 0;
+        if ((junction[0] > 0) && (junction[1] > 0))
+        {
+            PointPosition = 1;
+        }
+        else if ((junction[0] < 0) && (junction[1] > 0))
+        {
+            PointPosition = 2;
+        }
+        else if ((junction[0] < 0) && (junction[1] < 0))
+        {
+            PointPosition = 3;
+        }
+        else if ((junction[0] > 0) && (junction[1] < 0))
+        {
+            PointPosition = 4;
+        }
+
+        return PointPosition;
+
+    }
+
+
+
+    void PrintArray(int[,] array0, int size2)
+    {
+        string[] listname = { "A", "B", "C", "D" };
+
+        for (int j = 0; j < size2; j++)
+        {
+            Console.Write($"{listname[j]} ({array0[0, j]}, {array0[1, j]}); ");
+        }
+
+        Console.Write("\b\b ");
+        Console.WriteLine();
+
+    }
+
+
+
+    int vector_mult(int ax, int ay, int bx, int by) //векторное произведение
+    {
+        return ax * by - bx * ay;
+    }
+
+
+
+    bool areCrossing(int[,] array)//проверка пересечения
+    {
+
+        int p1x = array[0, 0]; int p1y = array[1, 0];
+        int p2x = array[0, 1]; int p2y = array[1, 1];
+        int p3x = array[0, 2]; int p3y = array[1, 2];
+        int p4x = array[0, 3]; int p4y = array[1, 3];
+
+        int v1 = vector_mult(p4x - p3x, p4y - p3y, p1x - p3x, p1y - p3y);
+        int v2 = vector_mult(p4x - p3x, p4y - p3y, p2x - p3x, p2y - p3y);
+        int v3 = vector_mult(p2x - p1x, p2y - p1y, p3x - p1x, p3y - p1y);
+        int v4 = vector_mult(p2x - p1x, p2y - p1y, p4x - p1x, p4y - p1y);
+
+        if ((v1 * v2) < 0 && (v3 * v4) < 0)
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+
+
+    //поиск точки пересечения
+    int[] CrossingPoint(int[,] array, int[] array2)
+    {
+
+        int p1x = array[0, 0]; int p1y = array[1, 0];
+        int p2x = array[0, 1]; int p2y = array[1, 1];
+        int p3x = array[0, 2]; int p3y = array[1, 2];
+        int p4x = array[0, 3]; int p4y = array[1, 3];
+
+        int a1 = p2y - p1y;
+        int b1 = p1x - p2x; ;
+        int c1 = -p1x * (p2y - p1y) + p1y * (p2x - p1x);
+
+        int a2 = p4y - p3y;
+        int b2 = p3x - p4x;
+        int c2 = -p3x * (p4y - p3y) + p3y * (p4x - p3x);
+
+        double d = (double)(a1 * b2 - b1 * a2);
+        double dx = (double)(-c1 * b2 + b1 * c2);
+        double dy = (double)(-a1 * c2 + c1 * a2);
+
+        array2[0] = (int)(dx / d);
+        array2[1] = (int)(dy / d);
+
+        return array2;
+
+    }
+
+
 
 }
 
@@ -525,4 +765,6 @@ void Task19()
 //Task02();
 //Task03();
 //Task04();
-Task11();
+//Task11();
+//Task12();
+//Task13();
