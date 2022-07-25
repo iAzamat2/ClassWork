@@ -672,6 +672,240 @@ void Task13()
 void Task14()
 {
 
+    int sizeX = 10; //лет
+    int sizeY = 12; // месяцев
+    int[,] tempTable = new int[sizeX, sizeY];
+
+
+
+    Console.Write($"Введите номер месяца начала (1-12): ");
+    int mStartNumber = Convert.ToInt32(Console.ReadLine()) - 1;
+    Console.Write($"Введите номер месяца конца (1-12): ");
+    int mEndNumber = Convert.ToInt32(Console.ReadLine()) - 1;
+    Console.Write($"Введите номер года начала (1-10): ");
+    int yStartNumber = Convert.ToInt32(Console.ReadLine()) - 1;
+    Console.Write($"Введите номер года конца (1-10): ");
+    int yEndNumber = Convert.ToInt32(Console.ReadLine()) - 1;
+
+
+    AutoFill(tempTable, sizeX, sizeY);
+    Console.WriteLine("| Дек\t| Янв\t| Фев\t| Мар\t| Апр\t| Май\t| Июнь\t| Июль\t| Авг\t| Сен\t| Окт\t| Ноя\t|");
+    PrintArray(tempTable, sizeX, sizeY, 0);
+
+
+
+    int max1 = Max(FindMax(tempTable, 0), FindMax(tempTable, 1), FindMax(tempTable, 2));
+    int min1 = Min(FindMin(tempTable, 0), FindMin(tempTable, 1), FindMin(tempTable, 2));
+
+    int max2 = Max(FindMax(tempTable, 3), FindMax(tempTable, 4), FindMax(tempTable, 5));
+    int min2 = Min(FindMin(tempTable, 3), FindMin(tempTable, 4), FindMin(tempTable, 5));
+
+    int max3 = Max(FindMax(tempTable, 6), FindMax(tempTable, 7), FindMax(tempTable, 8));
+    int min3 = Min(FindMin(tempTable, 6), FindMin(tempTable, 7), FindMin(tempTable, 8));
+
+    int max4 = Max(FindMax(tempTable, 9), FindMax(tempTable, 10), FindMax(tempTable, 11));
+    int min4 = Min(FindMin(tempTable, 9), FindMin(tempTable, 10), FindMin(tempTable, 11));
+
+
+
+    // зима
+    if (min1 == 100 && max1 == -100)
+    {
+        Console.WriteLine("Не удалось определить минимальную и максимальную температуры для зимы");
+    }
+    else
+    {
+        Console.WriteLine($"В указанный период {yStartNumber+1} - {yEndNumber+1}. Самая низкая температура для зимы: {min1}, высокая: {max1}");
+    }
+
+
+    // весна
+    if (min2 == 100 && max2 == -100)
+    {
+        Console.WriteLine("Не удалось определить минимальную и максимальную температуры для весны");
+    }
+    else
+    {
+        Console.WriteLine($"В указанный период {yStartNumber+1} - {yEndNumber+1}. Самая низкая температура для весны: {min2}, высокая: {max2}");
+    }
+
+
+    // лето
+    if (min3 == 100 && max3 == -100)
+    {
+        Console.WriteLine("Не удалось определить минимальную и максимальную температуры для лета");
+    }
+    else
+    {
+        Console.WriteLine($"В указанный период {yStartNumber+1} - {yEndNumber+1}. Самая низкая температура для лета: {min3}, высокая: {max3}");
+    }
+
+
+    // осень
+    if (min4 == 100 && max4 == -100)
+    {
+        Console.WriteLine("Не удалось определить минимальную и максимальную температуры для осени");
+    }
+    else
+    {
+        Console.WriteLine($"В указанный период {yStartNumber+1} - {yEndNumber+1}. Самая низкая температура для осени: {min4}, высокая: {max4}");
+    }
+
+
+
+    //=============================================================================//
+
+
+
+    int Min(int arg1, int arg2, int arg3)
+    {
+        int result = arg1;
+        if (arg2 < result) result = arg2;
+        if (arg3 < result) result = arg3;
+        return result;
+    }
+
+
+
+    int Max(int arg1, int arg2, int arg3)
+    {
+        int result = arg1;
+        if (arg2 > result) result = arg2;
+        if (arg3 > result) result = arg3;
+        return result;
+    }
+
+    
+
+    int FindMax(int[,] array, int pos)
+    {
+
+        int StartPos = -1;
+        int EndPos = -1;
+
+        if (mStartNumber <= pos)
+        {
+            StartPos = yStartNumber;
+        }
+        else
+        {
+            StartPos = yStartNumber + 1;
+        }
+
+
+        if (mEndNumber >= pos)
+        {
+            EndPos = yEndNumber;
+        }
+        else
+        {
+            EndPos = yEndNumber - 1;
+        }
+
+
+        int max = -100;
+
+        for (int i = StartPos; i <= EndPos; i++)
+        {
+            if (array[i, pos] > max)
+            {
+                max = array[i, pos];
+            }
+        }
+
+        return max;
+    }
+
+    
+
+    int FindMin(int[,] array, int pos)
+    {
+
+        int StartPos = -1;
+        int EndPos = -1;
+
+        if (mStartNumber <= pos)
+        {
+            StartPos = yStartNumber;
+        }
+        else
+        {
+            StartPos = yStartNumber + 1;
+        }
+
+
+        if (mEndNumber >= pos)
+        {
+            EndPos = yEndNumber;
+        }
+        else
+        {
+            EndPos = yEndNumber - 1;
+        }
+
+
+        int min = 100;
+
+        for (int i = StartPos; i <= EndPos; i++)
+        {
+            if (array[i, pos] < min)
+            {
+                min = array[i, pos];
+            }
+        }
+
+        return min;
+    }
+
+
+
+    int[,] AutoFill(int[,] array, int size1, int size2)
+    {
+        for (int i = 0; i < size1; i++)
+        {
+            for (int j = 0; j < size2; j++)
+            {
+                Random random = new Random();
+                switch (j)
+                {
+                    case 0: array[i, j] = random.Next(-15, -6); break; //декабрь
+                    case 1: array[i, j] = random.Next(-17, -8); break; // январь
+                    case 2: array[i, j] = random.Next(-17, -7); break; // февраль
+                    case 3: array[i, j] = random.Next(-10, 1); break; // март
+                    case 4: array[i, j] = random.Next(0, 11); break; // апрель
+                    case 5: array[i, j] = random.Next(6, 20); break; // май
+                    case 6: array[i, j] = random.Next(11, 25); break; // июнь
+                    case 7: array[i, j] = random.Next(13, 26); break; // июль
+                    case 8: array[i, j] = random.Next(11, 23); break; // август
+                    case 9: array[i, j] = random.Next(6, 17); break; // сентябрь
+                    case 10: array[i, j] = random.Next(0, 8); break; // октябрь
+                    case 11: array[i, j] = random.Next(-8, -1); break; //ноябрь
+                }
+            }
+        }
+        return array;
+    }
+
+
+
+    void PrintArray(int[,] array, int size1, int size2, int beginI)
+    {
+
+        for (int i = beginI; i < size1; i++)
+        {
+            Console.Write("| ");
+            for (int j = 0; j < size2; j++)
+            {
+                Console.Write(array[i, j] + "\t| ");
+            }
+            //Console.Write("|");
+            Console.WriteLine();
+        }
+
+    }
+
+
+
 }
 
 
@@ -768,3 +1002,4 @@ void Task19()
 //Task11();
 //Task12();
 //Task13();
+//Task14();
