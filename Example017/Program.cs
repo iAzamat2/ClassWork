@@ -715,7 +715,7 @@ void Task14()
     }
     else
     {
-        Console.WriteLine($"В указанный период {yStartNumber+1} - {yEndNumber+1}. Самая низкая температура для зимы: {min1}, высокая: {max1}");
+        Console.WriteLine($"В указанный период {yStartNumber + 1} - {yEndNumber + 1}. Самая низкая температура для зимы: {min1}, высокая: {max1}");
     }
 
 
@@ -726,7 +726,7 @@ void Task14()
     }
     else
     {
-        Console.WriteLine($"В указанный период {yStartNumber+1} - {yEndNumber+1}. Самая низкая температура для весны: {min2}, высокая: {max2}");
+        Console.WriteLine($"В указанный период {yStartNumber + 1} - {yEndNumber + 1}. Самая низкая температура для весны: {min2}, высокая: {max2}");
     }
 
 
@@ -737,7 +737,7 @@ void Task14()
     }
     else
     {
-        Console.WriteLine($"В указанный период {yStartNumber+1} - {yEndNumber+1}. Самая низкая температура для лета: {min3}, высокая: {max3}");
+        Console.WriteLine($"В указанный период {yStartNumber + 1} - {yEndNumber + 1}. Самая низкая температура для лета: {min3}, высокая: {max3}");
     }
 
 
@@ -748,7 +748,7 @@ void Task14()
     }
     else
     {
-        Console.WriteLine($"В указанный период {yStartNumber+1} - {yEndNumber+1}. Самая низкая температура для осени: {min4}, высокая: {max4}");
+        Console.WriteLine($"В указанный период {yStartNumber + 1} - {yEndNumber + 1}. Самая низкая температура для осени: {min4}, высокая: {max4}");
     }
 
 
@@ -775,7 +775,7 @@ void Task14()
         return result;
     }
 
-    
+
 
     int FindMax(int[,] array, int pos)
     {
@@ -816,7 +816,7 @@ void Task14()
         return max;
     }
 
-    
+
 
     int FindMin(int[,] array, int pos)
     {
@@ -919,8 +919,158 @@ void Task14()
 
 */
 
+
+
+
+
 void Task15()
 {
+
+    Console.Write($"Введите длину пароля: ");
+    int passlength = Convert.ToInt16(Console.ReadLine());
+    if (passlength <= 4)
+    {
+        passlength = 5;
+    }
+
+
+
+    string result = PasswordGenerator(passlength);
+    Console.WriteLine($"Ваш пароль: {result}");
+
+
+
+    //========================================//
+
+
+
+    string PasswordGenerator(int length)
+    {
+
+        // A - Z: 65 - 90
+        // a - z: 97 - 122
+        // 0 - 9
+        // ! # $ % &    * +  -  < = > @  ^ _  ~
+
+        string password = String.Empty;
+        Random random = new Random();
+
+        int countA = 0;
+        int count2 = 0;
+        int countSym = 0;
+
+        for (int i = 1; i <= length; i++)
+        {
+
+            if (i <= (length - 2))
+            {
+                int k = random.Next(0, 4);
+                switch (k)
+                {
+                    case 0: password = password + randomNumber(); count2++; break;
+                    case 1: password = password + randomUpCase(); countA++; break;
+                    case 2: password = password + randomLowerCase(); countA++; break;
+                    case 3: password = password + randomSymbol(); countSym++; break;
+                }
+            }
+
+
+
+            if (i > length - 2 && i <= length)
+            {
+
+                if (countA == 0)
+                {
+                    int l = random.Next(0, 2);
+                    switch (l)
+                    {
+                        case 0: password = password + randomUpCase(); countA++; break;
+                        case 1: password = password + randomLowerCase(); countA++; break;
+                    }
+                }
+                else if (count2 == 0)
+                {
+                    password = password + randomNumber(); count2++;
+                }
+                else if (countSym == 0)
+                {
+                    password = password + randomSymbol(); countSym++;
+                }
+                else if (password.Length < length)
+                {
+                    int k = random.Next(0, 4);
+                    switch (k)
+                    {
+                        case 0: password = password + randomNumber(); count2++; break;
+                        case 1: password = password + randomUpCase(); countA++; break;
+                        case 2: password = password + randomLowerCase(); countA++; break;
+                        case 3: password = password + randomSymbol(); countSym++; break;
+                    }
+                }
+            }
+
+
+
+            //Console.WriteLine(countA + " " + count2 + " " + countSym);
+
+        }
+
+
+
+        //========================================//
+
+
+
+        string randomUpCase()
+        {
+
+            string word = String.Empty;
+            word = word + (char)random.Next(65, 91);
+
+            return word;
+
+        }
+
+
+
+        string randomLowerCase()
+        {
+
+            string word = String.Empty;
+            word = word + (char)random.Next(97, 123);
+
+            return word;
+
+        }
+
+
+
+        string randomNumber()
+        {
+            return random.Next(0, 10).ToString();
+        }
+
+
+
+        string randomSymbol() //0 - 14
+        {
+            Random random = new Random();
+            int number = random.Next(0, 15);
+            string[] symbols = { "!", "#", "$", "%", "&", "*", "+", "-", "<", "=", ">", "@", "^", "_", "~" };
+
+            return symbols[number];
+
+        }
+
+
+
+        //========================================//
+
+        return password;
+
+    }
+
+
 
 }
 
@@ -1003,3 +1153,4 @@ void Task19()
 //Task12();
 //Task13();
 //Task14();
+//Task15();
