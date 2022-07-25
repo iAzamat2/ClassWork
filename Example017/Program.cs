@@ -962,7 +962,7 @@ void Task15()
         for (int i = 1; i <= length; i++)
         {
 
-            if (i <= (length - 2))
+            if (i <= ((length + 1) / 2))
             {
                 int k = random.Next(0, 4);
                 switch (k)
@@ -976,36 +976,32 @@ void Task15()
 
 
 
-            if (i > length - 2 && i <= length)
+            if (i > ((length + 1) / 2) && i <= length)
             {
 
+                int k2 = -1;
                 if (countA == 0)
                 {
-                    int l = random.Next(0, 2);
-                    switch (l)
-                    {
-                        case 0: password = password + randomUpCase(); countA++; break;
-                        case 1: password = password + randomLowerCase(); countA++; break;
-                    }
+                    k2 = random.Next(1, 3);
                 }
                 else if (count2 == 0)
                 {
-                    password = password + randomNumber(); count2++;
+                    k2 = 0;
                 }
                 else if (countSym == 0)
                 {
-                    password = password + randomSymbol(); countSym++;
+                    k2 = 3;
                 }
                 else if (password.Length < length)
                 {
-                    int k = random.Next(0, 4);
-                    switch (k)
-                    {
-                        case 0: password = password + randomNumber(); count2++; break;
-                        case 1: password = password + randomUpCase(); countA++; break;
-                        case 2: password = password + randomLowerCase(); countA++; break;
-                        case 3: password = password + randomSymbol(); countSym++; break;
-                    }
+                    k2 = random.Next(0, 4);
+                }
+                switch (k2)
+                {
+                    case 0: password = password + randomNumber(); count2++; break;
+                    case 1: password = password + randomUpCase(); countA++; break;
+                    case 2: password = password + randomLowerCase(); countA++; break;
+                    case 3: password = password + randomSymbol(); countSym++; break;
                 }
             }
 
