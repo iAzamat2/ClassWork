@@ -1084,6 +1084,19 @@ void Task15()
 void Task16()
 {
 
+    Random random = new Random();
+    double x = random.Next(-100, 101);
+    double y = random.Next(-100, 101);
+    Console.WriteLine($"Точка с координатами A ({x}, {y})");
+
+
+    double tg = Math.Abs(y) / Math.Abs(x);
+    double radians = Math.Atan(tg);
+    double angle = radians * (180 / Math.PI);
+    double result = Math.Round(angle, 3);
+
+    Console.WriteLine($"Наименьший угол наклона отрезка AO к оси X равен {result}°");
+
 }
 
 
@@ -1101,6 +1114,80 @@ void Task16()
 void Task17()
 {
 
+    int[] numbers = new int[100];
+    AutoFillArray(numbers);
+    Console.WriteLine($"Сгенерированный массив:");
+    PrintArray(numbers);
+
+
+
+    int count = 0;
+    for (int i = 0; i < numbers.Length; i++)
+    {
+
+        bool test0 = (numbers[i] / 10) == 3;
+        bool test1 = (numbers[i] % 10) == 3;
+
+        if (test0 == true || test1 == true)
+        {
+            numbers[i] = 0;
+            count++;
+        }
+
+    }
+
+
+
+    int[] numbers2 = new int[100 - count];
+    int index = 0;
+    for (int i = 0; i < numbers.Length; i++)
+    {
+        if (numbers[i] != 0)
+        {
+            numbers2[index] = numbers[i];
+            index++;
+        }
+    }
+
+
+
+    Console.WriteLine();
+    Console.WriteLine("Новый массив: ");
+    PrintArray(numbers2);
+    Console.WriteLine();
+    Console.WriteLine($"Количество удалённых элементов: {count}");
+
+
+
+    // ========================= //
+
+
+
+    int[] AutoFillArray(int[] array)
+    {
+        for (int i = 0; i < array.Length; i++)
+        {
+            Random random = new Random();
+            array[i] = random.Next(1, 101);
+        }
+        return array;
+    }
+
+
+
+    void PrintArray(int[] array0)
+    {
+        Console.Write("[");
+        for (int i = 0; i < array0.Length; i++)
+        {
+            Console.Write(array0[i] + ", ");
+        }
+        Console.Write("\b\b]");
+        Console.WriteLine();
+    }
+
+
+
 }
 
 
@@ -1115,6 +1202,15 @@ void Task17()
 
 void Task18()
 {
+
+    Random random = new Random();
+    int n = random.Next(2, 101);
+    Console.WriteLine($"n = {n}");
+
+    for (int i = 1; i <= n; i++)
+    {
+        Console.WriteLine($"{n} * {i} = {n * i}");
+    }
 
 }
 
@@ -1135,6 +1231,75 @@ void Task18()
 void Task19()
 {
 
+    int[] score = new int[2];
+    score[0] = Defense(1);
+    Console.WriteLine($"Текущий счёт: {score[0]}");
+    Game(score);
+    Winner(score);
+
+
+
+    // =========================== //
+
+
+
+    void Game(int[] array)
+    {
+        while (array[0] < 1000 && array[1] < 1000)
+        {
+            for (int i = array.Length - 1; i >= 0; i--)
+            {
+
+                int mult = 1;
+                switch (i)
+                {
+                    case 0: mult = array[1]; break;
+                    case 1: mult = array[0]; break;
+                }
+
+                if (array[0] < 1000 && array[1] < 1000)
+                {
+                    array[i] = Defense(i + 1) * mult;
+                    Console.WriteLine($"Текущий счёт: {array[i]}");
+                }
+
+            }
+        }
+    }
+
+
+
+    void Winner(int[] array)
+    {
+        if (array[0] > array[1])
+        {
+            Console.WriteLine($"Победил первый игрок с количеством очков: {array[0]}");
+        }
+        else
+        {
+            Console.WriteLine($"Победил второй игрок с количеством очков: {array[1]}");
+        }
+    }
+
+
+
+    int Defense(int txt)
+    {
+        int i;
+        do
+        {
+            do
+            {
+                Console.Write($"[Ход {txt} игрока]: введите число от 2 до 9: ");
+            } while (!int.TryParse(Console.ReadLine(), out i));
+
+
+        } while (i < 2 || i > 9);
+        return i;
+    }
+
+
+
 }
 
 
@@ -1150,3 +1315,7 @@ void Task19()
 //Task13();
 //Task14();
 //Task15();
+//Task16();
+//Task17();
+//Task18();
+//Task19();
