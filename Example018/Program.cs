@@ -182,17 +182,50 @@ void Task03()
     SortArray(array);
     PrintArray(array);
 
+    // =============== //
 
 
-    for (int i = 0; i < array.Length - 1; i++)
+
+    int[] list = new int[size];
+    int i, j, count, maxcount, num, len;
+
+    len = 0;
+    maxcount = 1;
+    num = 0;
+    for (i = 0; i < size; i++)
     {
-
-        if (array[i] == array[i + 1])
+        count = 0;
+        for (j = i; j < size; j++)
+            if (array[i] == array[j])
+            {
+                count++;
+            }
+        if (count == maxcount)
         {
-            Console.WriteLine(array[i]);
+            list[len] = i;
+            len++;
         }
+        if (count > maxcount)
+        {
+            maxcount = count;
+            num = i;
+            len = 1;
+            list[0] = i;
+        }
+
     }
-    //Console.WriteLine("ddd"+count);
+
+
+
+    Console.WriteLine("Cамые часто встречающееся элементы в массиве: ");
+    for (i = 0; i < len; i++)
+    {
+        Console.Write((array[list[i]]));
+    } 
+
+
+
+    // ============================= //
 
 
 
