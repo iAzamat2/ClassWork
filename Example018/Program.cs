@@ -176,26 +176,30 @@ void Task03()
     int[] array = new int[size];
 
     AutoFillArray(array);
+    Console.WriteLine();
     Console.WriteLine("Сгенерированный массив: ");
     PrintArray(array);
-    Console.WriteLine("Отсортированный массив: ");
-    SortArray(array);
-    PrintArray(array);
+    //Console.WriteLine();
+    //Console.WriteLine("Отсортированный массив: ");
+    //SortArray(array);
+    //PrintArray(array);
+
+
 
     // =============== //
 
 
 
     int[] list = new int[size];
-    int i, j, count, maxcount, num, len;
 
-    len = 0;
-    maxcount = 1;
-    num = 0;
-    for (i = 0; i < size; i++)
+    int count;
+    int len = 0;
+    int maxcount = 1;
+
+    for (int i = 0; i < size; i++)
     {
         count = 0;
-        for (j = i; j < size; j++)
+        for (int j = i; j < size; j++)
             if (array[i] == array[j])
             {
                 count++;
@@ -208,7 +212,6 @@ void Task03()
         if (count > maxcount)
         {
             maxcount = count;
-            num = i;
             len = 1;
             list[0] = i;
         }
@@ -217,11 +220,14 @@ void Task03()
 
 
 
-    Console.WriteLine("Cамые часто встречающееся элементы в массиве: ");
-    for (i = 0; i < len; i++)
+    Console.WriteLine();
+    Console.WriteLine($"Cамые часто встречающееся элементы в массиве: ( {maxcount} раз(а) )");
+
+    for (int i = 0; i < len; i++)
     {
-        Console.Write((array[list[i]]));
-    } 
+        Console.Write((array[list[i]]) + " ");
+    }
+    Console.WriteLine();
 
 
 
@@ -278,7 +284,7 @@ void Task03()
 
 
 
-
+            
 
 /*
 Создание игры:
