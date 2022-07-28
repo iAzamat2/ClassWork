@@ -1,4 +1,6 @@
-﻿/*
+﻿using Maze.Logic;
+
+/*
 Знакомство с языками программирования. Семинар 4.
 
 Задача 1. На вход подаётся натуральное десятичное число.
@@ -367,7 +369,7 @@ void Task11()
 
         k = Console.ReadKey(true);
 
-        if (k.Key == ConsoleKey.UpArrow)
+        if (k.Key == ConsoleKey.UpArrow) //&& playerY != 1
             playerY--;
         else if (k.Key == ConsoleKey.DownArrow)
             playerY++;
@@ -421,10 +423,119 @@ void Task11()
 
 void Task12()
 {
+    // Создание лабиринта 16*16
+    Grid labirint = new Grid(16, 16);
+    int[,] matrix = labirint.Generate();
+
+
+
+    // ============================== //
+
+
+
+    Console.ForegroundColor = ConsoleColor.DarkGreen;
+    //Console.BackgroundColor = ConsoleColor.DarkBlue;
+    Console.CursorVisible = false; // гасим курсор
+    ConsoleKeyInfo k;
+
+    // границы
     int height = Console.BufferHeight;
     int width = Console.BufferWidth;
-    Console.WriteLine(height);
-    Console.WriteLine(width);
+
+    // Координаты игрока
+    int playerX = 2;
+    int playerY = 1;
+    char playerChar = 'O';
+
+    // Координаты флага
+    int flagX = 32;
+    int flagY = 16;
+
+    do
+    {
+        Console.Clear();
+
+        labirint.Print(matrix);
+        // // рисуем верхнюю границу
+        // for (int i = 0; i < width; i++)
+        // {
+        //     Console.Write("#");
+        // }
+
+        // // рисуем нижнюю границу
+        // Console.SetCursorPosition(0, height - 1);
+        // for (int i = 0; i < width; i++)
+        // {
+        //     Console.Write("#");
+        // }
+
+        // // рисуем левую границу
+        // Console.SetCursorPosition(0, 1);
+        // for (int i = 0; i < height - 2; i++)
+        // {
+        //     Console.WriteLine("#");
+        // }
+
+        // // рисуем правую границу
+        // for (int i = 1; i < height - 1; i++)
+        // {
+        //     Console.SetCursorPosition(width - 1, i);
+        //     Console.WriteLine("#");
+        // }
+
+
+
+        Console.SetCursorPosition(flagX, flagY);
+        Console.Write("$"); // флаг
+
+        Console.SetCursorPosition(playerX, playerY);
+        Console.Write(playerChar);
+        // Анимация движения игрока
+        playerChar = playerChar == 'O' ? 'o' : 'O';
+
+        k = Console.ReadKey(true);
+
+        if (k.Key == ConsoleKey.UpArrow)
+            playerY--;
+        else if (k.Key == ConsoleKey.DownArrow)
+            playerY++;
+        else if (k.Key == ConsoleKey.LeftArrow)
+            playerX--;
+        else if (k.Key == ConsoleKey.RightArrow)
+            playerX++;
+
+        // ========================== //
+
+
+        if (playerY == 0)
+            playerY = height - 1;
+        else if (playerY == height)
+            playerY = 0;
+        else if (playerX == 0)
+            playerX = width - 1;
+        else if (playerX == width)
+            playerX = 0;
+
+
+        // ========================== //
+
+        if (playerX == flagX && playerY == flagY)
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Clear();
+            Console.WriteLine(" Победа ");
+            break; // выходим из цикла do - while
+        }
+
+    } while (k.Key != ConsoleKey.Escape); // выходим из цикла по нажатию Esc
+
+    Console.CursorVisible = true;
+    //Console.BackgroundColor = ConsoleColor.Black;
+    Console.ForegroundColor = ConsoleColor.White;
+
+
+
 }
 
 
