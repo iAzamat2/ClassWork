@@ -1,4 +1,11 @@
-﻿/*
+﻿using FunctionsOfArray;
+
+
+FunctionsOfArrayClass ar = new FunctionsOfArrayClass();
+
+
+
+/*
 Задача 1. Написать перевод десятичного числа в двоичное, используя рекурсию.
 
 */
@@ -121,7 +128,7 @@ https://docs.microsoft.com/ru-ru/dotnet/api/system.datetime?view=net-6.0
 
 void Task4()
 {
-
+    ar.FillTimeArray();
 }
 
 
